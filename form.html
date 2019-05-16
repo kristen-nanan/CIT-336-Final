@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--Kristen Nanan -->
+  <!--styling for elements-->
+  <style>
+  body{ background:#33A2FF;}
+  h1, a {font-family: Courier;
+    color: white;}
+  p, label {font-family: Arial;
+    color: white;}
+
+</style>
+<script>
+function validateForm() {
+  var x = document.getElementById('Day').value;console.log(x);
+  if (x == "") {
+    alert("Day must be filled out");
+    return false;
+  }
+   x = document.getElementById('Name').value;console.log(x);
+  if (x == "") {
+    alert("Name must be filled out");
+    return false;
+  }
+   x = document.getElementById('Tutor').value;console.log(x);
+  if (x == "") {
+    alert("Tutor must be filled out");
+    return false;
+  }
+  addtoDB();
+}
+</script>
+
+<meta charset="UTF-8">
+<title>Learning Center Reviews</title>
+</head>
+<body>
+<div>
+  <center><h1>Attendance</h1>
+
+<!--form for user to add information/adapted from example --> 
+
+<form>
+  <table>
+    <tr>
+        <td>Day (M/D/YR):</td>
+        <td><input type="text" name="day" id="Day" required="Input required"></td>
+    </tr>
+    <tr>
+        <td>
+          Full Name:
+        </td>
+        <td>
+          <input type="text" name="name" id="Name" required="Input required">
+        </td>
+    </tr>
+    <tr>
+        <td>
+          Subject:
+        </td>
+       <td> 
+            <select id="Subject" name="Subject">
+            <option value="Accounting">Accounting</option>
+            <option value="CIS 101">CIS 101</option>
+            <option value="Economics">Economics</option>
+            <option value="Finance">Finance</option>
+            <option value="Math">Math</option>
+            <option value="MBA">MBA</option>
+            <option value="Management">Management</option>
+            <option value="Science">Science</option>
+            </select>
+      </td>  
+     </tr> 
+     <tr>
+      <td>
+        Tutor Name:
+      </td>
+      <td>
+        <input type="text" name="tutor" id="Tutor" required>
+      </td>
+    </tr>
+  </table>
+
+   <center> <input type="submit" value="Submit" onclick="validateForm()"> </center>
+</form>
+
+<br>
+<br>
+
+<!-- add link to table -->
+<a href="table.php"> View Attendance Records </a>
+
+</center>
+<p id=”submitted></p>
+
+
+<!--script to add to database/adapted from example-->
+<script>
+function addtoDB() {
+  var xhttp; 
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+        document.getElementById("submitted").innerHTML = "form submitted";
+    }
+  };
+   var Day = document.getElementById('Day').value;
+   var Name = document.getElementById('Name').value;
+   var Subject = document.getElementById('Subject').value;
+   var Tutor = document.getElementById('Tutor').value;
+   var queryString = "?Day=" + Day +  "&Name=" + Name + "&Subject=" + Subject + "&Tutor=" + Tutor;
+   console.log(queryString);
+   xhttp.open("GET", "addToDatabase.php" + queryString, true);
+   xhttp.send(null); 
+
+}
+</script>
+</body>
+</html>
+
+
+
+
